@@ -1,21 +1,29 @@
+{% load staticfiles %}
 <html>
   <head>
+    <title>Список продуктов</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/foodrep.css' %}">
   </head>
   <body>
-    <p>Список продуктов будет здесь</p>
-    <table border="1">
+    <table class="table table-hover">
       <tr>
-        <th>Название продукта</th>
-        <th>Количество</th>
-        <th>Дата покупки</th>
-        <th>Срок годности</th>
+        <th scope="col">Название продукта</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Дата покупки</th>
+        <th scope="col">Срок годности</th>
       </tr>
         {% for food in foods %}
       <tr>
         <td>{{ food.title }}</td>
         <td>{{ food.qantity }}</td>
         <td>{{ food.created_date }}</td>
-        <td>{{ food.expire}}</td>
+        <td>
+          <div class="progress">
+              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </td>
       </tr>
         {% endfor %}
     </table>
