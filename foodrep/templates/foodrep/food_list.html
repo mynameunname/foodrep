@@ -3,19 +3,21 @@
   </head>
   <body>
     <p>Список продуктов будет здесь</p>
-    <table>
+    <table border="1">
       <tr>
         <th>Название продукта</th>
         <th>Количество</th>
         <th>Дата покупки</th>
-        <th>Срок годностиБ</th>
+        <th>Срок годности</th>
       </tr>
+        {% for food in foods %}
       <tr>
-        <td>Тут название</td>
-        <td>100</td>
-        <td>01.01.1970</td>
-        <td>DD.MM.YYYY</td>
+        <td>{{ food.title }}</td>
+        <td>{{ food.qantity }}</td>
+        <td>{{ food.created_date }}</td>
+        <td>{{ food.expire}}</td>
       </tr>
+        {% endfor %}
     </table>
   </body>
 </html>
