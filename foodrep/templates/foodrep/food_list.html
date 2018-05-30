@@ -9,27 +9,62 @@
     <link rel="stylesheet" href="{% static 'css/foodrep.css' %}">
   </head>
   <body>
-    <table class="table table-hover">
-      <tr>
-        <th scope="col">Название продукта</th>
-        <th scope="col">Количество</th>
-        <th scope="col">Дата покупки</th>
-        <th scope="col">Осталось дней</th>
-        <th scope="col">Срок годности</th>
-      </tr>
-        {% for food in foods %}
-      <tr>
-        <td>{{ food.title }}</td>
-        <td>{{ food.qantity }}</td>
-        <td>{{ food.created_date }}</td>
-        <td>{{ food.days_to_exp_from_now }}</td>
-        <td>
-          <div class="progress">
-              <div class="progress-bar {% if food.percent_to_exp < "50" %}bg-success{% elif food.percent_to_exp >= "50" and food.percent_to_exp < "75" %}bg-warning{% elif food.percent_to_exp >= "75" %}bg-danger{% endif %}" role="progressbar" style="width: {{ food.percent_to_exp }}%" aria-valuenow={{ food.percent_to_exp }} aria-valuemin="0" aria-valuemax="100">{{ food.percent_to_exp }}</div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Holodilnik</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Список продуктов <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="admin/foodrep/food/add/">Добавить продукт <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+    <div class="container">
+      <div class = "row align-items-center">
+        <div class = "col" style = "margin: 20px">
+          <div class="alert alert-info" role="alert">
+            В таблице ниже отображается список продуктов моего холодильника
           </div>
-        </td>
-      </tr>
-        {% endfor %}
-    </table>
+        </div>
+      </div>
+      <!--div class="row">
+        <div class="col">
+          <h4>Фильтр</h3>
+        </div>
+      </div-->
+
+      <div class="row">
+        <div class="col">
+          <h4>Список</h4>
+        </div>
+      </div>
+      <table class="table table-hover">
+        <tr>
+          <th scope="col">Название продукта</th>
+          <th scope="col">Количество</th>
+          <th scope="col">Дата покупки</th>
+          <th scope="col">Осталось дней</th>
+          <th scope="col">Срок годности</th>
+        </tr>
+          {% for food in foods %}
+        <tr>
+          <td>{{ food.title }}</td>
+          <td>{{ food.qantity }}</td>
+          <td>{{ food.created_date }}</td>
+          <td>{% if food.days_to_exp_from_now <= 0 %}<span class="badge badge-danger">Просрочено</span>{% else %}{{ food.days_to_exp_from_now }}{% endif %}</td>
+          <td>
+            <div class="progress">
+                <div class="progress-bar {% if food.percent_to_exp < "50" %}bg-success{% elif food.percent_to_exp >= "50" and food.percent_to_exp < "75" %}bg-warning{% elif food.percent_to_exp >= "75" or food.days_to_exp_from_now <= 0 %}bg-danger{% endif %}" role="progressbar" style="width: {{ food.percent_to_exp }}%" aria-valuenow={{ food.percent_to_exp }} aria-valuemin="0" aria-valuemax="100">{{ food.percent_to_exp }}%</div>
+            </div>
+          </td>
+        </tr>
+          {% endfor %}
+      </table>
+    </div>
   </body>
 </html>
